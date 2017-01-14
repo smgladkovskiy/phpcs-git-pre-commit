@@ -1,0 +1,12 @@
+{
+    "name": "smgladkovskiy/git-pre-commit-hooks",
+    "description": "PHPCS check before commit",
+    "type": "scripts",
+    "authors": [
+        {
+            "name": "Sergey Gladkovskiy",
+            "email": "smgladkovskiy@gmail.com"
+        }
+    ],
+    "require": {}
+}
