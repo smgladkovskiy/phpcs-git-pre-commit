@@ -10,7 +10,7 @@ fi
 cp ./vendor/smgladkovskiy/phpcs-git-pre-commit/src/pre-commit .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 
-if [ $PRE_COMMIT_EXISTS == 0 ];
+if [ "$PRE_COMMIT_EXISTS" = 0 ];
 then
     echo "Pre-commit git hook is installed!"
 else
