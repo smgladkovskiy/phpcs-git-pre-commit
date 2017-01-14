@@ -35,7 +35,7 @@ then
         echo "Fix the error before commit!"
         echo "Run"
         echo "  ./vendor/bin/phpcbf $FILES"
-        echo "for automatic fix."
+        echo "for automatic fix or fix it manually."
         exit 1
     fi
 fi
