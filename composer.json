@@ -1,5 +1,5 @@
 {
-    "name": "smgladkovskiy/git-pre-commit-hooks",
+    "name": "smgladkovskiy/phpcs-git-pre-commit",
     "description": "PHPCS check before commit",
     "type": "scripts",
     "authors": [
