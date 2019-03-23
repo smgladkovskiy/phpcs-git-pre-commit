@@ -37,3 +37,7 @@ Then run `composer install` or `composer update`. `pre-commit` hook will be inst
 Run `git commit` and pre-commit hook will check your committed files like if you run
 
     php phpcs.phar --standard=PSR2 --encoding=utf-8 -n -p /path/to/file.php
+
+## Contributing
+
+Feel free to make pull requests!
