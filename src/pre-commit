@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 PROJECT=`php -r "echo dirname(dirname(dirname(realpath('$0'))));"`
 STAGED_FILES_CMD=`git diff --cached --name-only --diff-filter=ACMR HEAD | grep \\\\.php`
@@ -10,34 +10,51 @@ then
     IFS='
     '
     SFILES="$1"
-    IFS=$oIFS
+    IFS=${oIFS}
 fi
 SFILES=${SFILES:-$STAGED_FILES_CMD}
 
 echo "Checking PHP Lint..."
-for FILE in $SFILES
+for FILE in ${SFILES}
 do
-    php -l -d display_errors=0 $PROJECT/$FILE
+    php -l -d display_errors=0 ${PROJECT}/${FILE}
     if [ $? != 0 ]
     then
         echo "Fix the error before commit."
         exit 1
     fi
-    FILES="$FILES $PROJECT/$FILE"
+    FILES="${FILES} $PROJECT/$FILE"
 done
 
-if [ "$FILES" != "" ]
+if [ "$CODE_FIXER" == 'false' ]
 then
-    echo "Running Code Sniffer. Code standard PSR2."
-    ./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 -n -p $FILES
-    if [ $? != 0 ]
+   echo "Skipping code fixer (set the environment variable CODE_FIXER=true to activate it)"
+   exit 1
+else
+    # Run the code style fixes if phpcs exists
+    if [ -f "vendor/bin/phpcs" ]
     then
-        echo "Fix the error before commit!"
-        echo "Run"
-        echo "  ./vendor/bin/phpcbf $FILES"
-        echo "for automatic fix or fix it manually."
-        exit 1
+        if [ "${FILES}" != "" ]
+        then
+            echo "Running Code Sniffer. Code standard PSR2."
+            ./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 -n -p ${FILES}
+            if [ $? != 0 ]
+            then
+                exec < /dev/tty
+                echo "If you would like to commit without running phpcs, run your commit overriding the env var with: 'CODE_FIXER=false git commit'"
+                echo 'Fix automatically (where possible)? [Y/n]'
+                read proceed
+                if [[ ! ("$proceed" == 'y' || "$proceed" == 'Y' || "$proceed" == '') ]]
+                then
+                    exit 1
+                else
+                  echo "automagically fixing files"
+                  ./Vendor/bin/phpcbf ${FILES}
+
+                  echo "re-staging updated files"
+                  git add ${FILES}
+                fi
+            fi
+        fi
     fi
 fi
-
-exit $?
