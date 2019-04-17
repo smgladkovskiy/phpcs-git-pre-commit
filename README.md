@@ -16,25 +16,34 @@ Thanks to [smgladkovskiy](https://github.com/smgladkovskiy/phpcs-git-pre-commit)
 
 ## Installation
 
-Install `osteel/phpcs-git-pre-commit` with composer require command:
+Install `smgladkovskiy/phpcs-git-pre-commit` with composer require command:
 
-    composer require "osteel/phpcs-git-pre-commit"
+    composer require --dev "smgladkovskiy/phpcs-git-pre-commit"
 
-Or alternatively, include a dependency for `osteel/phpcs-git-pre-commit` in your composer.json file manually:
+Or alternatively, include a dependency for `smgladkovskiy/phpcs-git-pre-commit` in your composer.json file manually:
 
     {
         "require-dev": {
-            "osteel/phpcs-git-pre-commit": "dev-master"
+            "smgladkovskiy/phpcs-git-pre-commit": "dev-master"
         }
     }
+
+Add the following to the `repositories` section of your composer.json file (create it if it doesn't exist):
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:osteel/phpcs-git-pre-commit.git"
+        }
+    ]
 
 To enable code sniff, аdd to `post-install-cmd` and `post-update-cmd` in `composer.json` installation script:
 
     "post-install-cmd": [
-        "sh ./vendor/osteel/phpcs-git-pre-commit/src/setup.sh"
+        "./vendor/smgladkovskiy/phpcs-git-pre-commit/src/setup.sh"
     ],
     "post-update-cmd": [
-        "sh ./vendor/osteel/phpcs-git-pre-commit/src/setup.sh"
+        "./vendor/smgladkovskiy/phpcs-git-pre-commit/src/setup.sh"
     ]
 
 Then run `composer install` or `composer update`. `pre-commit` hook will be installed or updated if it already exists.
