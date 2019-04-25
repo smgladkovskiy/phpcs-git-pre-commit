@@ -49,7 +49,7 @@ else
                     exit 1
                 else
                   echo "automagically fixing files"
-                  ./Vendor/bin/phpcbf ${FILES}
+                  ./Vendor/bin/phpcbf --standard=PSR2 ${FILES}
 
                   echo "re-staging updated files"
                   git add ${FILES}
