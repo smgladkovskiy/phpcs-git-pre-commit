@@ -35,10 +35,10 @@ else
     # Run PHP Mess Detector if available
     if [ -f "vendor/bin/phpmd" ]
     then
-        if [ "${MDFILES}" != "" ]
+        if [ "${MDFILES:1}" != "" ]
         then
             echo "Running PHP Mess Detector."
-            ./vendor/bin/phpmd ${MDFILES} text cleancode,codesize,controversial,design,naming,unusedcode
+            ./vendor/bin/phpmd ${MDFILES:1} text cleancode,codesize,controversial,design,naming,unusedcode
             if [ $? != 0 ]
             then
                 exec < /dev/tty
