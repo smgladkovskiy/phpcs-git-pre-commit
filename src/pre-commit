@@ -23,7 +23,8 @@ do
         echo "Fix the error before commit."
         exit 1
     fi
-    FILES="${FILES} $PROJECT/$FILE"
+    MDFILES="${MDFILES},$PROJECT/$FILE"
+    CSFILES="${CSFILES} $PROJECT/$FILE"
 done
 
 if [ "$CODE_FIXER" == 'false' ]
@@ -34,10 +35,10 @@ else
     # Run PHP Mess Detector if available
     if [ -f "vendor/bin/phpmd" ]
     then
-        if [ "${FILES}" != "" ]
+        if [ "${MDFILES}" != "" ]
         then
             echo "Running PHP Mess Detector."
-            ./vendor/bin/phpmd ${FILES} text cleancode,codesize,controversial,design,naming,unusedcode
+            ./vendor/bin/phpmd ${MDFILES} text cleancode,codesize,controversial,design,naming,unusedcode
             if [ $? != 0 ]
             then
                 exec < /dev/tty
@@ -54,10 +55,10 @@ else
     # Run the code style fixes if phpcs exists
     if [ -f "vendor/bin/phpcs" ]
     then
-        if [ "${FILES}" != "" ]
+        if [ "${CSFILES}" != "" ]
         then
             echo "Running Code Sniffer. Code standard PSR2."
-            ./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 -n -p ${FILES}
+            ./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 -n -p ${CSFILES}
             if [ $? != 0 ]
             then
                 exec < /dev/tty
@@ -69,10 +70,10 @@ else
                     exit 1
                 else
                   echo "automagically fixing files"
-                  ./Vendor/bin/phpcbf --standard=PSR2 ${FILES}
+                  ./Vendor/bin/phpcbf --standard=PSR2 ${CSFILES}
 
                   echo "re-staging updated files"
-                  git add ${FILES}
+                  git add ${CSFILES}
                 fi
             fi
         fi
