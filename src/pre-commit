@@ -31,6 +31,21 @@ then
    echo "Skipping code fixer (set the environment variable CODE_FIXER=true to activate it)"
    exit 1
 else
+    # Run PHP Mess Detector if available
+    if [ -f "vendor/bin/phpmd" ]
+    then
+        if [ "${FILES}" != "" ]
+        then
+            echo "Running PHP Mess Detector."
+            ./vendor/bin/phpmd ${FILES} text cleancode,codesize,controversial,design,naming,unusedcode
+            if [ $? != 0 ]
+            then
+                exec < /dev/tty
+                echo "If you would like to commit without running phpmd, run your commit overriding the env var with: 'CODE_FIXER=false git commit'"
+                exit 1
+            fi
+        fi
+    fi
     # Run the code style fixes if phpcs exists
     if [ -f "vendor/bin/phpcs" ]
     then
