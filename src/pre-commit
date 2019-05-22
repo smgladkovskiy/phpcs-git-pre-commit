@@ -42,7 +42,11 @@ else
             then
                 exec < /dev/tty
                 echo "If you would like to commit without running phpmd, run your commit overriding the env var with: 'CODE_FIXER=false git commit'"
-                exit 1
+                echo 'Ignore all of the above and proceed with the commit? [Y/n]'
+                read proceed
+                if [[ ! ("$proceed" == 'y' || "$proceed" == 'Y' || "$proceed" == '') ]]
+                    exit 1
+                fi
             fi
         fi
     fi
