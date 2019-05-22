@@ -45,6 +45,7 @@ else
                 echo 'Ignore all of the above and proceed with the commit? [Y/n]'
                 read proceed
                 if [[ ! ("$proceed" == 'y' || "$proceed" == 'Y' || "$proceed" == '') ]]
+                then
                     exit 1
                 fi
             fi
