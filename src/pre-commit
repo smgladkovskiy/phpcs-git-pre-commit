@@ -30,7 +30,7 @@ if [ "$FILES" != "" ]
 then
     echo "Running Code Sniffer. Code standard PSR2."
     ./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 -n -p $FILES
-    if [ $? != 0 ]
+    if [ $? ne 0 ]
     then
         echo "Fix the error before commit!"
         echo "Run"
