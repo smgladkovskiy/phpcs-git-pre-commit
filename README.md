@@ -11,7 +11,7 @@ Inspired by [Enforce code standards with composer, git hooks, and phpcs](http://
 
 Install `smgladkovskiy/phpcs-git-pre-commit` with composer require command:
 
-    composer require "smgladkovskiy/phpcs-git-pre-commit"
+    composer require --dev "smgladkovskiy/phpcs-git-pre-commit"
 
 Or alternatively, include a dependency for `smgladkovskiy/phpcs-git-pre-commit` in your composer.json file manually:
 
