@@ -42,7 +42,7 @@ done
 if [ "$FILES" != "" ]
 then
     echo "Running Code Sniffer."
-    ./vendor/bin/phpcs -n -p $FILES
+    ./vendor/bin/phpcs --standard=Magento2 -p $FILES
     if [ $? != 0 ]
     then
         echo "Fix the error before commit!"
