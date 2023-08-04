@@ -1,6 +1,6 @@
 {
     "name": "smgladkovskiy/phpcs-git-pre-commit",
-    "description": "PHPCS check before commit",
+    "description": "PHPCS check before commit, fork with Magento 2 supoprt",
     "type": "scripts",
     "license": "MIT",
     "authors": [
@@ -10,6 +10,6 @@
         }
     ],
     "require": {
-        "squizlabs/php_codesniffer": "^2.7 || ^3.0"
+        "squizlabs/php_codesniffer": "^3.0"
     }
 }
